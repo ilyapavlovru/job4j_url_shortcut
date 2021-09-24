@@ -1,10 +1,30 @@
 package ru.job4j.url_shortcut.domain;
 
+import ru.job4j.url_shortcut.util.PasswordGenerator;
+
 import java.util.Objects;
 
 public class Person {
     private String username;
     private String password;
+    private Site site;
+    private boolean registration;
+
+    public Person() {
+        PasswordGenerator loginGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
+                .useDigits(false)
+                .useLower(true)
+                .useUpper(true)
+                .build();
+        PasswordGenerator passwordGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
+                .useDigits(true)
+                .useLower(true)
+                .useUpper(true)
+                .build();
+        this.username = loginGenerator.generate(6);
+        this.password = passwordGenerator.generate(10);
+        this.registration = true;
+    }
 
     public String getUsername() {
         return username;
@@ -20,6 +40,14 @@ public class Person {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Site getSite() {
+        return site;
+    }
+
+    public void setSite(Site site) {
+        this.site = site;
     }
 
     @Override

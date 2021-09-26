@@ -1,6 +1,6 @@
 package ru.job4j.url_shortcut.store;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.job4j.url_shortcut.domain.Url;
 import ru.job4j.url_shortcut.util.PasswordGenerator;
 
@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Component
-public class UrlStore {
+@Repository
+public class UrlRepository {
 
     private final ConcurrentHashMap<String, Url> urls = new ConcurrentHashMap<>();
 
@@ -34,11 +34,6 @@ public class UrlStore {
 
     public List<Url> findAll() {
         return new ArrayList<>(urls.values());
-    }
-
-    public void updateUrlStatistics(String url) {
-        Url foundUrl = urls.get(url);
-        foundUrl.setTotal(foundUrl.getTotal() + 1);
     }
 
     public Optional<Url> findByValue(String value) {

@@ -1,6 +1,6 @@
 package ru.job4j.url_shortcut.store;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.job4j.url_shortcut.domain.Person;
 
 import java.util.ArrayList;
@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Component
-public class UserStore {
+@Repository
+public class UserRepository {
 
     private final ConcurrentHashMap<String, Person> users = new ConcurrentHashMap<>();
 

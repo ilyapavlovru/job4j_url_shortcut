@@ -7,7 +7,7 @@ import org.springframework.web.server.ResponseStatusException;
 import ru.job4j.url_shortcut.domain.Person;
 import ru.job4j.url_shortcut.domain.RegistrationResponse;
 import ru.job4j.url_shortcut.domain.Site;
-import ru.job4j.url_shortcut.store.UserStore;
+import ru.job4j.url_shortcut.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,19 +16,19 @@ import java.util.Optional;
 @RequestMapping("/users")
 public class UserController {
 
-    private UserStore users;
+    private UserService userService;
     private BCryptPasswordEncoder encoder;
 
-    public UserController(UserStore users,
+    public UserController(UserService userService,
                           BCryptPasswordEncoder encoder) {
-        this.users = users;
+        this.userService = userService;
         this.encoder = encoder;
     }
 
     @PostMapping("/registration")
     public RegistrationResponse registration(@RequestBody Site site) {
 
-        Optional<Person> foundBySitePerson = users.findBySite(site.getSite());
+        Optional<Person> foundBySitePerson = userService.findBySite(site.getSite());
         if (foundBySitePerson.isPresent()) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
@@ -40,12 +40,12 @@ public class UserController {
         person.setSite(site);
         RegistrationResponse registrationResponse = new RegistrationResponse(true, person.getUsername(), person.getPassword());
         person.setPassword(encoder.encode(person.getPassword()));
-        users.save(person);
+        userService.save(person);
         return registrationResponse;
     }
 
     @GetMapping("/all")
     public List<Person> findAll() {
-        return users.findAll();
+        return userService.findAll();
     }
 }

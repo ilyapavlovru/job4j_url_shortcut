@@ -3,6 +3,7 @@ package ru.job4j.url_shortcut.domain;
 import java.util.Objects;
 
 public class Site {
+
     private String site;
 
     public String getSite() {

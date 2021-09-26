@@ -4,6 +4,10 @@ public class ConvertResponse {
 
     private String code;
 
+    public ConvertResponse(String convertedUrl) {
+        this.code = convertedUrl;
+    }
+
     public String getCode() {
         return code;
     }

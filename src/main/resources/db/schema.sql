@@ -13,4 +13,4 @@ create table url
     value varchar(300) not null unique,
     code  varchar(20)  not null unique,
     total int default 0
-)
+);

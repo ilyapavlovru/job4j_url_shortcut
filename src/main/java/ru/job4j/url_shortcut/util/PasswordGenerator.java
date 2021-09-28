@@ -110,16 +110,13 @@ public final class PasswordGenerator {
      * the object with a probability.
      */
     public String generate(int length) {
-        // Argument Validation.
         if (length <= 0) {
             return "";
         }
 
-        // Variables.
         StringBuilder password = new StringBuilder(length);
         Random random = new Random(System.nanoTime());
 
-        // Collect the categories to use.
         List<String> charCategories = new ArrayList<>(4);
         if (useLower) {
             charCategories.add(LOWER);
@@ -134,7 +131,6 @@ public final class PasswordGenerator {
             charCategories.add(PUNCTUATION);
         }
 
-        // Build the password.
         for (int i = 0; i < length; i++) {
             String charCategory = charCategories.get(random.nextInt(charCategories.size()));
             int position = random.nextInt(charCategory.length());

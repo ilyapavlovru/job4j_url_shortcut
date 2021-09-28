@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.job4j.url_shortcut.domain.Person;
 import ru.job4j.url_shortcut.store.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -25,11 +25,13 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public Optional<Person> findBySite(String site) {
+    public Person findBySite(String site) {
         return userRepository.findBySite(site);
     }
 
     public List<Person> findAll() {
-        return userRepository.findAll();
+        List<Person> rsl = new ArrayList<>();
+        userRepository.findAll().forEach(rsl::add);
+        return rsl;
     }
 }

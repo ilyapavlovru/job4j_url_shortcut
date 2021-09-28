@@ -12,6 +12,14 @@ public class RegistrationResponse {
         this.password = password;
     }
 
+    public boolean isRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(boolean registration) {
+        this.registration = registration;
+    }
+
     public String getUsername() {
         return username;
     }

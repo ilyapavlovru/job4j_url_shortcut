@@ -2,12 +2,20 @@ package ru.job4j.url_shortcut.domain;
 
 import ru.job4j.url_shortcut.util.PasswordGenerator;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "person")
 public class Person {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     private String username;
     private String password;
-    private Site site;
+    private String site;
     private boolean registration;
 
     public Person() {
@@ -26,6 +34,14 @@ public class Person {
         this.registration = true;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -42,12 +58,20 @@ public class Person {
         this.password = password;
     }
 
-    public Site getSite() {
+    public String getSite() {
         return site;
     }
 
-    public void setSite(Site site) {
+    public void setSite(String site) {
         this.site = site;
+    }
+
+    public boolean isRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(boolean registration) {
+        this.registration = registration;
     }
 
     @Override

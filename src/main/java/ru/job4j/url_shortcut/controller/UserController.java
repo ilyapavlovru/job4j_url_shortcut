@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import ru.job4j.url_shortcut.domain.Person;
 import ru.job4j.url_shortcut.domain.RegistrationResponse;
-import ru.job4j.url_shortcut.domain.Site;
+import ru.job4j.url_shortcut.domain.SiteRequest;
 import ru.job4j.url_shortcut.service.UserService;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/users")
@@ -26,18 +27,18 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public RegistrationResponse registration(@RequestBody Site site) {
+    public RegistrationResponse registration(@RequestBody SiteRequest siteRequest) {
 
-        Optional<Person> foundBySitePerson = userService.findBySite(site.getSite());
-        if (foundBySitePerson.isPresent()) {
+        Person foundBySitePerson = userService.findBySite(siteRequest.getSite());
+        if (foundBySitePerson != null) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
-                    "Site with the same name is found. Please, use unique site!"
+                    "SiteRequest with the same name is found. Please, use unique siteRequest!"
             );
         }
 
         Person person = new Person();
-        person.setSite(site);
+        person.setSite(siteRequest.getSite());
         RegistrationResponse registrationResponse = new RegistrationResponse(true, person.getUsername(), person.getPassword());
         person.setPassword(encoder.encode(person.getPassword()));
         userService.save(person);
@@ -46,6 +47,8 @@ public class UserController {
 
     @GetMapping("/all")
     public List<Person> findAll() {
-        return userService.findAll();
+        return StreamSupport.stream(
+                this.userService.findAll().spliterator(), false
+        ).collect(Collectors.toList());
     }
 }

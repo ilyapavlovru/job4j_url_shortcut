@@ -3,9 +3,10 @@ package ru.job4j.url_shortcut.service;
 import org.springframework.stereotype.Service;
 import ru.job4j.url_shortcut.domain.Url;
 import ru.job4j.url_shortcut.store.UrlRepository;
+import ru.job4j.url_shortcut.util.PasswordGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UrlService {
@@ -16,8 +17,18 @@ public class UrlService {
         this.urlRepository = urlRepository;
     }
 
-    public String save(String url) {
-        return urlRepository.save(url);
+    public Url save(String url) {
+
+        PasswordGenerator codeGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
+                .useDigits(true)
+                .useLower(true)
+                .useUpper(true)
+                .build();
+        String convertedUrl = codeGenerator.generate(6);
+        Url createdUrl = new Url(url, 0);
+        createdUrl.setCode(convertedUrl);
+
+        return urlRepository.save(createdUrl);
     }
 
     public Url findByCode(String code) {
@@ -25,15 +36,18 @@ public class UrlService {
     }
 
     public List<Url> findAll() {
-        return urlRepository.findAll();
+        List<Url> rsl = new ArrayList<>();
+        urlRepository.findAll().forEach(rsl::add);
+        return rsl;
     }
 
     public void updateUrlStatistics(String code) {
         Url foundUrl = urlRepository.findByCode(code);
         foundUrl.setTotal(foundUrl.getTotal() + 1);
+        urlRepository.save(foundUrl);
     }
 
-    public Optional<Url> findByValue(String value) {
+    public Url findByValue(String value) {
         return urlRepository.findByValue(value);
     }
 }

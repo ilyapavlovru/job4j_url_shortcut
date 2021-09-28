@@ -15,7 +15,6 @@ import ru.job4j.url_shortcut.service.UserService;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class ProcessController {
@@ -32,21 +31,21 @@ public class ProcessController {
     public ResponseEntity<ConvertResponse> convert(@RequestBody ConvertRequest request) throws MalformedURLException {
         String url = request.getUrl();
         String host = new URL(url).getHost();
-        Optional<Person> foundBySitePerson = userService.findBySite(host);
-        if (foundBySitePerson.isEmpty()) {
+        Person foundBySitePerson = userService.findBySite(host);
+        if (foundBySitePerson == null) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Host of requested url is not registered!"
             );
         }
-        Optional<Url> foundUrl = urlService.findByValue(url);
-        if (foundUrl.isPresent()) {
+        Url foundUrl = urlService.findByValue(url);
+        if (foundUrl != null) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Url with the same name is found. Please, use unique url!"
             );
         }
-        String convertedUrl = urlService.save(url);
+        String convertedUrl = urlService.save(url).getCode();
         return new ResponseEntity<>(new ConvertResponse(convertedUrl), HttpStatus.OK);
     }
 

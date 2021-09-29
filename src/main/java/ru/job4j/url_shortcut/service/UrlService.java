@@ -1,6 +1,8 @@
 package ru.job4j.url_shortcut.service;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.url_shortcut.domain.Url;
 import ru.job4j.url_shortcut.store.UrlRepository;
 import ru.job4j.url_shortcut.util.PasswordGenerator;
@@ -41,6 +43,8 @@ public class UrlService {
         return rsl;
     }
 
+    @Modifying
+    @Transactional
     public void updateUrlStatistics(String code) {
         Url foundUrl = urlRepository.findByCode(code);
         foundUrl.setTotal(foundUrl.getTotal() + 1);

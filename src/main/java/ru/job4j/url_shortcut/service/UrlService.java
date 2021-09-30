@@ -43,12 +43,8 @@ public class UrlService {
         return rsl;
     }
 
-    @Modifying
-    @Transactional
     public void updateUrlStatistics(String code) {
-        Url foundUrl = urlRepository.findByCode(code);
-        foundUrl.setTotal(foundUrl.getTotal() + 1);
-        urlRepository.save(foundUrl);
+        urlRepository.updateUrlStatistics(code);
     }
 
     public Url findByValue(String value) {

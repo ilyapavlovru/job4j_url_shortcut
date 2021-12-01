@@ -17,6 +17,30 @@
 - Spring Data JPA
 - PostgreSQL
 
+**Как запустить приложение через docker-compose**
+==
+1. Собрать образ приложения:
+docker build -t shortcut .
+
+2. Запустить кластер базы данных в отдельном контейнере:
+docker run -d --name postgres \
+-e POSTGRES_PASSWORD=password \
+-e PGDATA=/var/lib/postgresql/data/pgdata \
+-p 5433:5432 \
+-v postgres_db:/var/lib/postgresql/data \
+postgres
+
+3. Создать базу данных для приложения:
+3.1. Подключиться к кластеру изнутри контейнера:
+docker exec -it postgres bash
+3.2. Открыть psql:
+psql -U postgres
+3.3. Создать базу данных:
+CREATE DATABASE shortcut;
+
+4. Запустить скрипт docker-compose
+docker-compose up
+
 **REST API запросы:**
 ==
 Регистрация нового сайта, получение логина и пароля

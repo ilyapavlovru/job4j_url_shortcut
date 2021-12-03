@@ -1,3 +1,6 @@
+![img](https://img.shields.io/docker/cloud/automated/forcety/job4j_url_shortcut) 
+![img](https://img.shields.io/docker/cloud/build/forcety/job4j_url_shortcut)
+
 Сервис - UrlShortCut
 =========================================
 

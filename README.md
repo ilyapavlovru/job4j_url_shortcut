@@ -63,22 +63,22 @@ docker-compose up
 **REST API запросы:**
 ==
 Регистрация нового сайта, получение логина и пароля
-![ScreenShot](images/2021-11-04_233326.png)
+![ScreenShot](https://github.com/ilyapavlovru/job4j_url_shortcut/raw/master/images/2021-11-04_233326.png)
 
 Вход в систему под логином и паролем, получение токена
-![ScreenShot](images/2021-11-04_233617.png)
+![ScreenShot](https://github.com/ilyapavlovru/job4j_url_shortcut/raw/master/images/2021-11-04_233617.png)
 
 Список зарегистрированных сайтов
-![ScreenShot](images/2021-11-04_233815.png)
+![ScreenShot](https://github.com/ilyapavlovru/job4j_url_shortcut/raw/master/images/2021-11-04_233815.png)
 
 Генерация ссылки
-![ScreenShot](images/2021-11-04_234332.png)
+![ScreenShot](https://github.com/ilyapavlovru/job4j_url_shortcut/raw/master/images/2021-11-04_234332.png)
 
 Переадресация с использованием новой ссылки
-![ScreenShot](images/2021-11-04_234704.png)
+![ScreenShot](https://github.com/ilyapavlovru/job4j_url_shortcut/raw/master/images/2021-11-04_234704.png)
 
 Статистика переходов по сгенерированным ссылкам
-![ScreenShot](images/2021-11-04_234812.png)
+![ScreenShot](https://github.com/ilyapavlovru/job4j_url_shortcut/raw/master/images/2021-11-04_234812.png)
 
 **Контакты:**
 ==
